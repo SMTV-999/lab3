@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Блог</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+    <h1>Страница управления базой пользователей</h1>
+    <h2>Добавление пользователя</h2>
+    <form action="users-editor/add" name="addform" method="post" enctype="multipart/form-data">
+			<input id="username" placeholder="Логин" name="login" type="text" />
+			<input id="fullname" placeholder="ФИО" name="fullName" type="text" />
+			<button type="submit">Создать</button>
+    </form>
+    	<h2>Пользователи:</h2><br> 
+		   <div id="divblock" th:each="user : ${users}">
+		   		<div><hr>
+		   		<p>Логин: <span th:text="${user.login}">  </span>
+		       	   ФИО: <span th:text="${user.fullName}">  </span>
+		       	   Постов: <span th:text="${user.countposts}"></span></p>
+		   		<a th:href="'/users-editor/' + ${user.id} + '/remove'">Удалить</a>
+		   		<a th:href="'/users-editor/' + ${user.id}">Открыть</a>
+		   		</div>
+		   		<hr>
+		   </div>
+		   <script type="text/javascript" src="js/divusers.js"></script>
+</body>
+</html>

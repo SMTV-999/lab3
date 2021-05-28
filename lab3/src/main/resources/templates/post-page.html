@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Блог</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+    <h1>Пост пользователя <span th:text=${post.author}></span></h1>
+  		<div><hr>
+  		<p>	Заголовок: <span th:text="${post.heading}"><br>  </span>
+      	   	Текст: <span th:text="${post.text}"><br> </span>
+      	   	Дата: <span th:text="${post.date}"></span></p>
+  			<a th:href="'/posts-editor/' + ${post.id} + '/remove'">Удалить</a>
+  		</div>
+  		<hr>
+		<div>
+			<form th:action="'/posts-editor/' + ${post.id} + '/change'" method="post" enctype="multipart/form-data">
+				<h2>Изменение текста</h2>
+				<textarea name="text"></textarea>
+				<button type="submit">Изменить</button>
+			</form>
+		</div>
+		   
+</body>
+</html>

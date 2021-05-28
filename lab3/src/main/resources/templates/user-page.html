@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Блог</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+    <h1>Страница пользователя <span th:text=${user.login}></span></h1>
+    <h2>Посты пользователя:</h2>
+    	<br> 
+		   <div th:each="post : ${posts}">
+		   		<div><hr>
+		   		<p>	Заголовок: <span th:text="${post.heading}"><br>  </span>
+		       	   	Текст: <span th:text="${post.text}"><br> </span>
+		       	   	Дата: <span th:text="${post.date}"></span></p>
+		   			<a th:href="'/posts-editor/' + ${post.id} + '/remove'">Удалить</a>
+		   			<a th:href="'/posts-editor/' + ${post.id} + '/change'">Изменить</a>
+		   		</div>
+		   		<hr>
+		   </div>
+	<div>
+		<form th:action="'/users-editor/' + ${user.id} + '/addpost'" method="post" enctype="multipart/form-data">
+			<input placeholder="Заголовок" name="heading" type="text" />
+			<input placeholder="Текст" name="text" type="text" />
+			<button type="submit">Создать</button>
+			</form>
+		</div>
+		   
+</body>
+</html>

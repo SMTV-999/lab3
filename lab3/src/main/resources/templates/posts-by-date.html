@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Блог</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+    <h1>Страница управления базой постов</h1>
+    	<h2>Посты за <span th:text=${date}></span>:</h2><br>
+		   <div th:each="post : ${posts}">
+		   		<div><hr>
+		   		<p>Заголовок: <span th:text="${post.heading}"></span><br>
+		       	   Текст: <span th:text="${post.text}"></span><br>
+		       	   Дата: <span th:text="${post.date}"></span><br>
+		       	   Автор: <a th:href="'/users-editor/' + ${post.author_id}"><span th:text="${post.author}"></span></a></p>
+		       	   	<a th:href="'/posts-editor/' + ${post.id} + '/remove'">Удалить</a>
+		   			<a th:href="'/posts-editor/' + ${post.id}">Открыть</a>
+		   		</div>
+		   		<hr>
+		   </div>
+</body>
+</html>
