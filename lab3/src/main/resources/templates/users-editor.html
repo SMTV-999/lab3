@@ -11,19 +11,11 @@
     <form action="users-editor/add" name="addform" method="post" enctype="multipart/form-data">
 			<input id="username" placeholder="Логин" name="login" type="text" />
 			<input id="fullname" placeholder="ФИО" name="fullName" type="text" />
-			<button type="submit">Создать</button>
+			<input type="button" value="Добавить" onclick="addUser('username', 'fullname');">
     </form>
-    	<h2>Пользователи:</h2><br> 
-		   <div id="divblock" th:each="user : ${users}">
-		   		<div><hr>
-		   		<p>Логин: <span th:text="${user.login}">  </span>
-		       	   ФИО: <span th:text="${user.fullName}">  </span>
-		       	   Постов: <span th:text="${user.countposts}"></span></p>
-		   		<a th:href="'/users-editor/' + ${user.id} + '/remove'">Удалить</a>
-		   		<a th:href="'/users-editor/' + ${user.id}">Открыть</a>
-		   		</div>
-		   		<hr>
-		   </div>
-		   <script type="text/javascript" src="js/divusers.js"></script>
+    	<h2>Таблица пользователей:</h2><br> 
+		   <div th:each="user : ${users}" id="usersList"></div>
+		<input type="button" value="Обновить" onclick="fillTable()">
+	<script src="js/ajax.js"></script>
 </body>
 </html>
