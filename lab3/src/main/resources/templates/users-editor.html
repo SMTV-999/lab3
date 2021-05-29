@@ -15,7 +15,7 @@
     </form>
     	<h2>Таблица пользователей:</h2><br> 
 		   <div th:each="user : ${users}" id="usersList"></div>
-		<input type="button" value="Обновить" onclick="fillTable()">
-	<script src="js/ajax.js"></script>
+		<input type="button" value="Обновить" onclick="getList()">
+	<script src="js/ajax-users.js"></script>
 </body>
 </html>

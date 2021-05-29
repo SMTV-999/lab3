@@ -5,12 +5,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ru.simatov.labs.lab3.models.Post;
 import ru.simatov.labs.lab3.models.User;
+import ru.simatov.labs.lab3.repos.PostRepository;
 import ru.simatov.labs.lab3.repos.UserRepository;
 
 @RestController
@@ -29,6 +34,11 @@ public class AjaxController {
 	public void addUser(@RequestParam String login, @RequestParam String fullName) {
 		User user = new User(login, fullName);
 		userRepository.save(user);
+	}
+	
+	@GetMapping("/ajax/remove/{id}")
+	public void blogRemove(@PathVariable("id") Long id) {
+		userRepository.remove(id);
 	}
 	
 	

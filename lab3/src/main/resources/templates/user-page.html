@@ -21,8 +21,8 @@
 		   </div>
 	<div>
 		<form th:action="'/users-editor/' + ${user.id} + '/addpost'" method="post" enctype="multipart/form-data">
-			<input placeholder="Заголовок" name="heading" type="text" />
-			<input placeholder="Текст" name="text" type="text" />
+			<input id="heading" placeholder="Заголовок" name="heading" type="text" />
+			<input id="text" placeholder="Текст" name="text" type="text" />
 			<button type="submit">Создать</button>
 			</form>
 		</div>

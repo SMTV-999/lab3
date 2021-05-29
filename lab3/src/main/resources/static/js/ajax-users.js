@@ -13,12 +13,16 @@ function addUser(login, fullname) {
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	
 	xhr.onreadystatechange = function() {
-		if (xhr.readyState == 4 && xhr.status != 200) {
-			alert('AJAX request error');
+		if (xhr.readyState == 4) {
+			if(xhr.status == 200){
+				getList();
+			} else {alert('AJAX request error');
+			}
 		}
 	}
 	
 	xhr.send("login=" + name + "&fullName=" + fname);
+	
 }
 
 
@@ -40,14 +44,17 @@ function fillTable(data) {
 	
 	let table = document.getElementById('usersList');
 	
+	if (table.value != "") {
+		table.innerHTML = "";
+	}
+	
 	data.forEach((element) => {
 		let div = document.createElement('div');
 		div.appendChild(document.createElement('hr'));
-		div.appendChild(createName(element.login));
+		div.appendChild(createName(element.login, element.id));
 		div.appendChild(createFullName(element.fullName));
 		div.appendChild(createCountposts(element.countposts));
 		div.appendChild(createRemoveLink(element.id));
-		div.appendChild(createOpenLink(element.id));
 		div.appendChild(document.createElement('hr'));
 		table.appendChild(div);
 	});
@@ -55,15 +62,16 @@ function fillTable(data) {
 }
 
 
-function createName(name) {
-	let td = document.createElement('span');
-	td.innerText = "Логин: " + name + " | ";
+function createName(name, id) {
+	let td = document.createElement('a');
+	td.innerText = name;
+	td.href = "/users-editor/" + id;
 	return td;
 }
 
 function createFullName(name) {
 	let td = document.createElement('span');
-	td.innerText = "ФИО: " + name + " | ";
+	td.innerText =" | " + "ФИО: " + name + " | ";
 	return td;
 }
 
@@ -74,15 +82,22 @@ function createCountposts(name) {
 }
 
 function createRemoveLink(name) {
-	let td = document.createElement('a');
+	let td = document.createElement('button');
 	td.innerText = "Удалить  ";
-	td.href = "/users-editor/" + name + "/remove";
-	return td;
-}
-
-function createOpenLink(name) {
-	let td = document.createElement('a');
-	td.innerText = "Открыть  ";
-	td.href = "/users-editor/" + name;
+	td.onclick = function() {
+		let str = "/ajax/remove/" + name;
+		
+		xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			if(xhr.status == 200){
+				getList();
+			} else {alert('AJAX request error');
+			}
+		}
+	}
+		
+		xhr.open("GET", str);
+		xhr.send();
+	};
 	return td;
 }
